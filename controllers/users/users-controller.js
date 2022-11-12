@@ -3,8 +3,8 @@ import people from './users.js';
 let users = people
 
 const UserController = (app) => {
-    app.get('/api/users', findUsers)
-    app.get('/api/users/:uid', findUsersById)      // Retrieve data from server
+    app.get('/api/users', findUsers)               // Retrieve data from server
+    app.get('/api/users/:uid', findUsersById)      
     app.post('/api/users', createUser)             // Send data to server
     app.delete('/api/users/:uid', deleteUser)     // Delete data from server
     app.put('/api/users/:uid', updateUser)        // Update user info to server
