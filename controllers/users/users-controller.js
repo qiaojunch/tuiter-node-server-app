@@ -49,7 +49,7 @@ const createUser = (req, res) => {
 const deleteUser = (req, res) => {
     // get user id from path parameter
     const uid = req.params['uid'] 
-    users = users.filter(u => u._id !== uid)
+    users = users.filter(u => u._id !== uid)  // check if uid is number type!
     res.sendStatus(200)
 }
 
