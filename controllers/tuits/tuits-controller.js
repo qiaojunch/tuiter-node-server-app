@@ -1,41 +1,38 @@
-import posts from "./tuits.js"
+import * as tuitsDao from "../tuits/tuits-dao.js";
 
-let tuits = posts;
-
-const createTuit = (req, res) => {
+const createTuit = async (req, res) => {
     const newTuit = req.body
-    newTuit._id = parseInt((new Date()).getTime() + "")
     newTuit.likes = 0
     newTuit.liked = false
-    tuits.push(newTuit)
-    res.json(newTuit)
+
+    const insertedTuit = await tuitsDao.createTuit(newTuit)   // tuited inserted to database
+    res.json(insertedTuit)
 }
-const findTuits  = (req, res) => {
+
+const findTuits  = async (req, res) => {
+    const tuits = await tuitsDao.findTuits()   // retreive data from database
     res.json(tuits)
 }
-const findTuitById = (req, res) => {
-    const tid = parseInt(req.params.tid);   // need to convert string to int
-    const tuit = tuits.find( t => t._id === tid );
-    res.send(tuit);
-}
 
-const updateTuit = (req, res) => {
-    const tuitIdToUpdate = parseInt(req.params.tid)
+// const findTuitById = (req, res) => {
+//     const tid = parseInt(req.params.tid);   // need to convert string to int
+//     const tuit = tuits.find( t => t._id === tid );
+//     res.send(tuit);
+// }
+
+const updateTuit = async (req, res) => {
+    const tuitIdToUpdate = req.params.tid
     const updates = req.body         // get update content from HTTP body
-    const tuitIndex = tuits.findIndex( t => t._id === tuitIdToUpdate)
-    tuits[tuitIndex] = {
-        ...tuits[tuitIndex], ...updates
-    }
-    console.log(tuits[tuitIndex])
-    res.json(tuits[tuitIndex])       // response with the updated tuit
+    
+    const status = await tuitsDao.updateTuit(tuitIdToUpdate, updates)
+    res.json(status)       // response with status
 }
 
-const deleteTuit = (req, res) => {
-    const tuitId = parseInt(req.params.tid)
-    tuits = tuits.filter( t => t._id !== tuitId )
-    console.log(tuits)
-    res.sendStatus(200)
-
+const deleteTuit = async (req, res) => {
+    const tuitIdToDelete = req.params.tid  
+    const status = await tuitsDao.deleteTuit(tuitIdToDelete)
+    
+    res.json(status)
 }
 
 const TuitsController = (app) => {
