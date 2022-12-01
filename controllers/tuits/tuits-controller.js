@@ -38,7 +38,7 @@ const deleteTuit = async (req, res) => {
 const TuitsController = (app) => {
  app.post('/api/tuits', createTuit);
  app.get('/api/tuits', findTuits);
- app.get('/api/tuits/:tid', findTuitById);
+//  app.get('/api/tuits/:tid', findTuitById);
  app.put('/api/tuits/:tid', updateTuit);
  app.delete('/api/tuits/:tid', deleteTuit);
 }
