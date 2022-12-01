@@ -5,7 +5,9 @@ import TuitsController from './controllers/tuits/tuits-controller.js'
 import cors from 'cors'    // cross origin resource sharing among domains
 import mongoose from 'mongoose'
 
-const CONNECTION_STRING = 'mongodb+srv://cs5610:cs5610@cluster0.4l3ujxx.mongodb.net/?retryWrites=true&w=majority'
+//'mongodb+srv://cs5610:cs5610@cluster0.4l3ujxx.mongodb.net/?retryWrites=true&w=majority'
+
+const CONNECTION_STRING = process.env.DB_CONNECTION_STRING
 || 'mongodb://localhost:27017/tuiter';
 mongoose.connect(CONNECTION_STRING);
 
